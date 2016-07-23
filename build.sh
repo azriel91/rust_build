@@ -18,8 +18,8 @@ fi
 
 # === Code format === #
 log_info "Verifying source meets code formatting standards"
-log_info "Running: ! TERM=dumb cargo fmt -- --write-mode=diff | grep -e \"^\(+\|-\)\|\(Rustfmt failed\)\" -m 1 > /dev/null"
-syntax_output=$(TERM=dumb cargo fmt -- --write-mode=diff)
+log_info "Running: ! TERM=dumb cargo fmt -- --config-path=\"${base_dir}\" --write-mode=diff | grep -e \"^\(+\|-\)\|\(Rustfmt failed\)\" -m 1 > /dev/null"
+syntax_output=$(TERM=dumb cargo fmt -- --config-path="${base_dir}" --write-mode=diff)
 log_debug "${syntax_output}"
 # we negate the result of the next command because a positive grep result indicates a failure
 ! echo "${syntax_output}" | grep -e "^\(+\|-\)\|\(Rustfmt failed\)" -m 1 > /dev/null
