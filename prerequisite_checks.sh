@@ -31,3 +31,14 @@ message=$(cat <<-EOF
 	)
 cargo --list | grep '\Wfmt$' > /dev/null 2>&1
 prerequisite_check $? "${message}"
+
+# git subrepo
+log_debug "Checking pre-requisite: git-subrepo"
+message=$(cat <<-EOF
+   git-subrepo must be installed. Instructions can be found at https://github.com/ingydotnet/git-subrepo
+   IMPORTANT: You should checkout the issue/142 branch as the master does not work properly when the sub repositories \
+   contain merge commits.
+   EOF
+   )
+git subrepo version > /dev/null 2>&1
+prerequisite_check $? "${message}"
