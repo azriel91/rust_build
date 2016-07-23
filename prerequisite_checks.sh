@@ -5,15 +5,29 @@
 base_dir=$(dirname "${0}")
 source "${base_dir}/log_functions.sh"
 
+function prerequisite_check() {
+  exit_code=$1
+  failure_message="${2}"
+
+  if [ ! $exit_code -eq 0 ]; then log_error "${failure_message}"; fi
+}
+
 # Cargo
-which cargo 2>&1
-if [ $? -eq 1 ] ; then
-  log_error "Cargo must be installed. This should come with your Rust distribution."
-  log_error "Instructions can be found at https://www.rust-lang.org/downloads.html"
-fi
+log_debug "Checking pre-requisite: Cargo"
+# Note: the following is tab indented because bash heredocs can unindent tabs but not spaces
+message=$(cat <<-EOF
+	Cargo must be installed. This should come with your Rust distribution.
+	Instructions can be found at https://www.rust-lang.org/downloads.html
+	EOF
+	)
+which cargo > /dev/null 2>&1
+prerequisite_check $? "${message}"
 
 # Rustfmt
-cargo --list | grep "\Wfmt$" > /dev/null 2>&1
-if [ $? -eq 1 ] ; then
-  log_error "rustfmt must be installed. Instructions can be found at https://github.com/rust-lang-nursery/rustfmt"
-fi
+log_debug "Checking pre-requisite: Rustfmt"
+message=$(cat <<-EOF
+	rustfmt must be installed. Instructions can be found at https://github.com/rust-lang-nursery/rustfmt
+	EOF
+	)
+cargo --list | grep '\Wfmt$' > /dev/null 2>&1
+prerequisite_check $? "${message}"
