@@ -1,8 +1,12 @@
 #!/bin/sh
 
 base_dir=$(dirname "${0}")
-source "${base_dir}/log_functions.sh"
-source "${base_dir}/prerequisite_checks.sh"
+. "${base_dir}/log_functions.sh"
+. "${base_dir}/prerequisite_checks.sh"
+
+original_dir=$(pwd)
+working_dir="${1-.}"
+cd "${working_dir}"
 
 # === Code format === #
 log_info "Verifying source meets code formatting standards"
@@ -42,5 +46,7 @@ else
 fi
 
 fail_if_error
+
+cd "${original_dir}"
 
 log_notice "Build successful"
