@@ -23,25 +23,25 @@ log_error() {
 
 log_warn() {
   message=$1
-  if [[ LOG_LEVEL_REAL -lt 1 ]]; then return; fi
+  if [ $LOG_LEVEL_REAL -lt 1 ]; then return; fi
   printf "\e[1;33m[WARN ] \e[0;33m${message}\e[0m\n" 1>&2
 }
 
 log_notice() {
   message=$1
-  if [[ LOG_LEVEL_REAL -lt 2 ]]; then return; fi
+  if [ $LOG_LEVEL_REAL -lt 2 ]; then return; fi
   printf "\e[1;32m[NTICE] \e[0;32m${message}\e[0m\n" 1>&2
 }
 
 log_info() {
   message=$1
-  if [[ LOG_LEVEL_REAL -lt 3 ]]; then return; fi
+  if [ $LOG_LEVEL_REAL -lt 3 ]; then return; fi
   printf "\e[1;36m[INFO ] \e[0;36m${message}\e[0m\n" 1>&2
 }
 
 log_debug() {
   message=$1
-  if [[ LOG_LEVEL_REAL -lt 4 ]]; then return; fi
+  if [ $LOG_LEVEL_REAL -lt 4 ]; then return; fi
   printf "\e[1;34m[DEBUG] \e[0;34m${message}\e[0m\n"
 }
 
