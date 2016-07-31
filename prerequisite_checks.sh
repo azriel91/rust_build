@@ -3,9 +3,9 @@
 # Checks if pre-requisites are installed
 
 base_dir=$(dirname "${0}")
-source "${base_dir}/log_functions.sh"
+. "${base_dir}/log_functions.sh"
 
-function prerequisite_check() {
+prerequisite_check() {
   exit_code=$1
   failure_message="${2}"
 
