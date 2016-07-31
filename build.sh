@@ -1,13 +1,20 @@
 #!/bin/sh
 
 base_dir=$(dirname "${0}")
-source "${base_dir}/log_functions.sh"
-source "${base_dir}/prerequisite_checks.sh"
+. "${base_dir}/log_functions.sh"
+. "${base_dir}/prerequisite_checks.sh"
+
+# Use a subshell so that cd doesn't affect current shell
+base_dir_absolute="$(cd "$(dirname "${0}")" && pwd)"
+
+original_dir=$(pwd)
+working_dir="${1-.}"
+cd "${working_dir}"
 
 # === Code format === #
 log_info "Verifying source meets code formatting standards"
-log_info "Running: ! TERM=dumb cargo fmt -- --config-path=\"${base_dir}\" --write-mode=diff | grep -e \"^\(+\|-\)\|\(Rustfmt failed\)\" -m 1 > /dev/null"
-syntax_output=$(TERM=dumb cargo fmt -- --config-path="${base_dir}" --write-mode=diff)
+log_info "Running: ! TERM=dumb cargo fmt -- --config-path=\"${base_dir_absolute}\" --write-mode=diff | grep -e \"^\(+\|-\)\|\(Rustfmt failed\)\" -m 1 > /dev/null"
+syntax_output=$(TERM=dumb cargo fmt -- --config-path="${base_dir_absolute}" --write-mode=diff)
 log_debug "${syntax_output}"
 # we negate the result of the next command because a positive grep result indicates a failure
 ! echo "${syntax_output}" | grep -e "^\(+\|-\)\|\(Rustfmt failed\)" -m 1 > /dev/null
@@ -42,5 +49,7 @@ else
 fi
 
 fail_if_error
+
+cd "${original_dir}"
 
 log_notice "Build successful"
