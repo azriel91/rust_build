@@ -13,11 +13,11 @@ cd "${working_dir}"
 
 # === Code format === #
 log_info "Verifying source meets code formatting standards"
-log_info "Running: ! TERM=dumb cargo fmt -- --config-path=\"${base_dir_absolute}\" --write-mode=diff | grep -e \"^\(+\|-\)\|\(Rustfmt failed\)\" -m 1 > /dev/null"
-syntax_output=$(TERM=dumb cargo fmt -- --config-path="${base_dir_absolute}" --write-mode=diff)
+log_info "Running: ! TERM=dumb cargo fmt -- --config-path=\"${base_dir_absolute}\" --write-mode=diff 2>&1 | grep -e \"^\(\+\|-\)\|\(Rustfmt failed\)\" -m 1 > /dev/null"
+syntax_output=$(TERM=dumb cargo fmt -- --config-path="${base_dir_absolute}" --write-mode=diff 2>&1)
 log_debug "${syntax_output}"
 # we negate the result of the next command because a positive grep result indicates a failure
-! echo "${syntax_output}" | grep -e "^\(+\|-\)\|\(Rustfmt failed\)" -m 1 > /dev/null
+! echo "${syntax_output}" | grep -e "^\(\+\|-\)\|\(Rustfmt failed\)" -m 1 > /dev/null
 syntax_check_result=$?
 if [ "${syntax_check_result}" -ne "0" ]; then
   log_error "Code format check failed. Please adhere to the rustfmt coding standards" false
