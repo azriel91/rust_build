@@ -9,8 +9,8 @@ This is a convenience build script which essentially wraps the following command
 ```bash
 # Inside the crate directory
 # Syntax validation
-! TERM=dumb cargo fmt -- --config-path=rust_build --write-mode=diff | \
-  grep -e "^\(+\|-\)\|\(Rustfmt failed\)" -m 1 > /dev/null \
+! TERM=dumb cargo fmt -- --config-path=rust_build --write-mode=diff 2>&1 | \
+  grep -e "^\(\+\|-\)\|\(Rustfmt failed\)" -m 1 > /dev/null \
   && echo pass || echo fail
 
 # Compile and test
