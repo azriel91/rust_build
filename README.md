@@ -17,3 +17,7 @@ This is a convenience build script which essentially wraps the following command
 cargo build
 cargo test
 ```
+
+## prepare_release.sh
+
+Updates the changelog in a repository with the current date as the release date, then commits and tags the repository.
