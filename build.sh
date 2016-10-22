@@ -4,17 +4,14 @@ base_dir=$(dirname "${0}")
 . "${base_dir}/log_functions.sh"
 . "${base_dir}/prerequisite_checks.sh"
 
-# Use a subshell so that cd doesn't affect current shell
-base_dir_absolute="$(cd "$(dirname "${0}")" && pwd)"
-
 original_dir=$(pwd)
 working_dir="${1-.}"
 cd "${working_dir}"
 
 # === Code format === #
 log_info "Verifying source meets code formatting standards"
-log_info "Running: ! TERM=dumb cargo fmt -- --config-path=\"${base_dir_absolute}\" --write-mode=diff 2>&1"
-syntax_output=$(TERM=dumb cargo fmt -- --config-path="${base_dir_absolute}" --write-mode=diff 2>&1)
+log_info "Running: ! TERM=dumb cargo fmt -- --write-mode=diff 2>&1"
+syntax_output=$(TERM=dumb cargo fmt -- --write-mode=diff 2>&1)
 syntax_check_result=$?
 log_debug "${syntax_output}"
 if [ "${syntax_check_result}" -ne "0" ]; then
