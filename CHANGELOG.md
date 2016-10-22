@@ -1,4 +1,4 @@
-## 0.2.0 (unreleased)
+## 0.2.0 (2016-10-22)
 
 * Use Rustfmt exit code to determine if code formatting standards are met.
 * Use Rustfmt default for line length limit (100). Previously this was overridden to be 120.
