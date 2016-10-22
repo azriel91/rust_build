@@ -1,3 +1,7 @@
+## 0.2.1 (2016-10-22)
+
+* Updated README.md to match code format command.
+
 ## 0.2.0 (2016-10-22)
 
 * Use Rustfmt exit code to determine if code formatting standards are met.
