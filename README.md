@@ -14,7 +14,14 @@ cargo fmt -- --write-mode=diff 2>&1 && echo pass || echo fail
 # Compile and test
 cargo build
 cargo test
+
+# or, if using nightly:
+# cargo test --all-features
 ```
+
+## compiler_functions.sh
+
+Provides `is_stable`, `is_beta`, and `is_nightly` functions to detect the Rust compiler variant.
 
 ## prepare_release.sh
 

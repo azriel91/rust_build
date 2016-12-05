@@ -3,6 +3,7 @@
 base_dir=$(dirname "${0}")
 . "${base_dir}/log_functions.sh"
 . "${base_dir}/prerequisite_checks.sh"
+. "${base_dir}/compiler_functions.sh"
 
 original_dir=$(pwd)
 working_dir="${1-.}"
@@ -34,8 +35,10 @@ fi
 
 # === Test === #
 log_info "Compiling tests"
-log_info "Running: cargo test"
-cargo test
+additional_args=""
+if is_nightly; then additional_args="--all-features"; fi
+log_info "Running: cargo test ${additional_args}"
+cargo test $additional_args
 test_result=$?
 if [ "${test_result}" -ne "0" ]; then
   log_error "Tests failed, please scroll up to find details of the failure"
