@@ -1,5 +1,8 @@
 ## 0.3.0 (unreleased)
 
+* Added compiler_functions.sh to discover the variant of rust compiler used
+* Updated build script to build all crate features if on nightly
+
 ## 0.2.1 (2016-10-22)
 
 * Updated README.md to match code format command.
