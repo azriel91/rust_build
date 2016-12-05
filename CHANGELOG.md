@@ -1,3 +1,5 @@
+## 0.4.0 (unreleased)
+
 ## 0.3.0 (2016-12-05)
 
 * Added compiler_functions.sh to discover the variant of rust compiler used
